@@ -1,4 +1,3 @@
-require 'byebug'
 class Map
   attr_reader :map
 
@@ -7,7 +6,6 @@ class Map
   end
 
   def assign(key, value)
-    # byebug
     pair_index = nil
     map.each_with_index do |el, idx|
       pair_index = idx if map[idx][0] == key
