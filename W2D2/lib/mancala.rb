@@ -29,7 +29,7 @@ class Mancala
 
         begin
           start_pos = current_player.prompt
-          start_pos -= 1 if start_pos <= 6
+          start_pos -= 1 if start_pos <= 6 #already switches here from render visual nums (1-12 with stores) to our actual indices (0-13). No need to account for it inside board class
           @board.valid_move?(start_pos)
         rescue Exception => e
           puts e.message
