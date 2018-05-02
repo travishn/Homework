@@ -20,7 +20,7 @@ class Play
   end
 
   def self.find_by_title(title)
-    play = PlayDBConnection.instance.execute(<<-SQL, title
+    play = PlayDBConnection.instance.execute(<<-SQL, title)
       SELECT
         *
       FROM
@@ -36,7 +36,7 @@ class Play
     playwright = Playwright.find_by_name(name)
     raise "#{name} not found" unless playwright
 
-    plays = PlayDBConnection.instance.execute(<<-SQL, playwright.id
+    plays = PlayDBConnection.instance.execute(<<-SQL, playwright.id)
       SELECT
         *
       FROM
@@ -84,12 +84,12 @@ class Playwright
   attr_reader :id
 
   def self.all
-    data = PlayDBConnection.instance.execute(SELECT * FROM playwrights)
+    data = PlayDBConnection.instance.execute("SELECT * FROM playwrights")
     data.map { |datum| Playwright.new(datum) }
   end
 
-  def self.find_by_name(name)
-    playwright = PlayDBConnection.instance.execute(<<-SQL, @name
+  def self.find_by_name(name) #FOR SOME REASON, CAN'T USE @NAME FOR THIS METHOD
+    playwright = PlayDBConnection.instance.execute(<<-SQL, name)
       SELECT
         *
       FROM
@@ -102,9 +102,9 @@ class Playwright
   end
 
   def initialize(options)
-    @id = options[id]
-    @name = options[name]
-    @birth_year = options[birth_year]
+    @id = options['id']
+    @name = options['name']
+    @birth_year = options['birth_year']
   end
 
   def create
