@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style>
+
+      .likeabutton {
+        appearance: button;
+        -moz-appearance: button;
+        -webkit-appearance: button;
+        text-decoration: none; font: menu; color: black;
+        display: inline-block; padding: 2px 8px;
+      }
+
+      .title {
+        font-size: 50px;
+        font-style: italic;
+        text-align: center;
+      }
+
+      body {
+        background-color: lightblue;
+      }
+
+
+
+    </style>
+  </head>
+
+  <h1 class='title'>MUSIC APP</h1>
+  <a class="likeabutton" href="<%= bands_url %>">Take me Home</a>
+  <br>
+
+  <% if current_user %>
+    <div>
+        <p>Logged in as: <%= current_user.email %></p>
+        <form action="<%= sessions_url %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+
+          <input type="submit" value="Sign Out">
+        </form>
+    </div>
+  <% else %>
+      <a class="likeabutton" href=" <%= new_user_url %> ">Go to Sign-up!</a>
+      <a class="likeabutton" href="<%= new_sessions_url %>">Sign In</a>
+  <% end %>
+
+  <br><br>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
